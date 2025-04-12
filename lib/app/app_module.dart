@@ -10,12 +10,12 @@ class AppModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(
+        Provider<SqliteConnectionFactory>(
           create: (_) => SqliteConnectionFactory(),
           lazy: false,
         ),
       ],
-      child: AppWidget(),
+      child: const AppWidget(),
     );
   }
 }

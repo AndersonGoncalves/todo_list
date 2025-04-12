@@ -1,3 +1,4 @@
+import 'modules/auth/auth_module.dart';
 import 'modules/splash/splash_page.dart';
 import 'core/database/sqlite_adm_connection.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,10 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Todo List Provider',
+      initialRoute: '/login',
+      routes: {
+        ...AuthModule().routers,
+      },
       home: SplashPage(),
     );
   }
