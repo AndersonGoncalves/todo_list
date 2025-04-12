@@ -1,22 +1,36 @@
-import 'login_controller.dart';
-import '../../../core/database/sqlite_connection_factory.dart';
+import '../../../core/widget/todo_list_logo.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<LoginController>(context);
-    final sqliteConnectionFactory =
-        Provider.of<SqliteConnectionFactory>(context);
-    sqliteConnectionFactory.openConnection();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Container(),
+      backgroundColor: Color(0xFFF0F3F7),
+      //LayoutBuilder: Para saber o tamanho da tela
+      body: LayoutBuilder(builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
+              minWidth: constraints.maxWidth,
+            ),
+            //IntrinsicHeight: Para controlar o tamanho da tela (o filho não tem o tamanho infinito, ele tem o tamanho que precisa ter)
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TodoListLogo(),
+                ],
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }
