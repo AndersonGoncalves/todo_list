@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 
+import 'todo_list_field.dart';
+
 class TodoListLogo extends StatelessWidget {
   const TodoListLogo({super.key});
 
@@ -23,13 +25,13 @@ class TodoListLogo extends StatelessWidget {
                 child: Form(
                   child: Column(
                     children: [
-                      TextFormField(
-                          decoration: InputDecoration(
-                        labelText: 'Email',
-                      )),
+                      TodoListField(
+                        label: 'E-mail',
+                      ),
                       SizedBox(height: 20),
-                      TextFormField(
-                        decoration: InputDecoration(labelText: 'Password'),
+                      TodoListField(
+                        label: 'Senha',
+                        obscureText: true,
                       ),
                       SizedBox(height: 10),
                       Row(
