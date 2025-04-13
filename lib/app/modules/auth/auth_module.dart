@@ -1,7 +1,9 @@
+import 'package:provider/provider.dart';
 import 'login/login_controller.dart';
 import 'login/login_page.dart';
+import 'register/register_controller.dart';
+import 'register/register_page.dart';
 import '../../core/modules/todo_list_module.dart';
-import 'package:provider/provider.dart';
 
 class AuthModule extends TodoListModule {
   AuthModule()
@@ -10,9 +12,13 @@ class AuthModule extends TodoListModule {
             ChangeNotifierProvider<LoginController>(
               create: (_) => LoginController(),
             ),
+            ChangeNotifierProvider<RegisterController>(
+              create: (_) => RegisterController(),
+            ),
           ],
           routers: {
             '/login': (_) => LoginPage(),
+            '/register': (_) => RegisterPage(),
           },
         );
 }

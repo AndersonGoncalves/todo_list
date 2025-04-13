@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import '../ui/todo_list_icons.dart';
+import 'package:flutter/material.dart';
 
 class TodoListField extends StatelessWidget {
   final String label;
@@ -62,7 +61,6 @@ class TodoListField extends StatelessWidget {
           ),
           obscureText: obscureTextValue,
         );
-        ;
       },
     );
   }
