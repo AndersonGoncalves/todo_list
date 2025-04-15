@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:validatorless/validatorless.dart';
+import 'register_controller.dart';
+import '../../../core/notifier/default_listener_notifier.dart';
 import '../../../core/ui/theme_extensions.dart';
 import '../../../core/validators/validators.dart';
 import '../../../core/widget/todo_list_field.dart';
 import '../../../core/widget/todo_list_logo.dart';
-import 'register_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -23,19 +24,32 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
-    context.read<RegisterController>().addListener(() {
-      final controller = context.read<RegisterController>();
-      var sucess = controller.sucess;
-      var error = controller.error;
-      if (sucess) {
+    var defaultListener = DefaultListenerNotifier(
+        changeNotifier: context.read<RegisterController>());
+    defaultListener.listener(
+      context: context,
+      sucessCallback: (notifier, listenerInstance) {
+        listenerInstance.dispose();
         Navigator.of(context).pop();
-      } else if (error != null && error.isNotEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(error),
-          backgroundColor: Colors.red,
-        ));
-      }
-    });
+      },
+      //Esse atributo é opcional
+      // errorCallback: (notifier, listenerInstance) =>
+      //     debugPrint('Ocorreu um erro'),
+    );
+    //Essas linhas de baixo foram substitidas pelas linhas acima
+    // context.read<RegisterController>().addListener(() {
+    //   final controller = context.read<RegisterController>();
+    //   var sucess = controller.sucess;
+    //   var error = controller.error;
+    //   if (sucess) {
+    //     Navigator.of(context).pop();
+    //   } else if (error != null && error.isNotEmpty) {
+    //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       content: Text(error),
+    //       backgroundColor: Colors.red,
+    //     ));
+    //   }
+    // });
   }
 
   @override
