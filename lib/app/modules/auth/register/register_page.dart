@@ -112,12 +112,13 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 children: [
                   TodoListField(
-                      label: 'E-mail',
-                      controller: _emailEC,
-                      validator: Validatorless.multiple([
-                        Validatorless.required('Email obrigatório'),
-                        Validatorless.email('Email inválido'),
-                      ])),
+                    label: 'E-mail',
+                    controller: _emailEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('Email obrigatório'),
+                      Validatorless.email('Email inválido'),
+                    ]),
+                  ),
                   SizedBox(height: 20),
                   TodoListField(
                     label: 'Senha',

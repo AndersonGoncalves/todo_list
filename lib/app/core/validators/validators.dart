@@ -8,8 +8,6 @@ class Validators {
       final valueCompare = valueEC?.text ?? '';
       if (value == null || value != null && value != valueCompare) {
         return message;
-      } else {
-        return '';
       }
     };
   }
