@@ -21,6 +21,12 @@ abstract class TodoListModule {
           bindings: _bindings,
           page: pageBuilder,
         ),
+        // (_) => MultiProvider(
+        //   providers: _bindings ?? [Provider(create: (_) => Object())],
+        //   child: Builder(
+        //     builder: (context) => pageBuilder(context),
+        //   ),
+        // ),
       ),
     );
   }

@@ -25,7 +25,8 @@ class _RegisterPageState extends State<RegisterPage> {
   void initState() {
     super.initState();
     var defaultListener = DefaultListenerNotifier(
-        changeNotifier: context.read<RegisterController>());
+      changeNotifier: context.read<RegisterController>(),
+    );
     defaultListener.listener(
       context: context,
       sucessCallback: (notifier, listenerInstance) {
@@ -143,7 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   SizedBox(height: 20),
                   Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.bottomRight,
                     child: ElevatedButton(
                       onPressed: () {
                         final formValid =
@@ -151,6 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         if (formValid) {
                           final email = _emailEC.text;
                           final password = _passwordEC.text;
+                          // Provider.of<RegisterController>(context, listen: false).registerUser(email, password);
                           context
                               .read<RegisterController>()
                               .registerUser(email, password);

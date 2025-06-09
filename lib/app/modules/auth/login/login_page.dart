@@ -22,7 +22,8 @@ class LoginPage extends StatelessWidget {
             //IntrinsicHeight: Para controlar o tamanho da tela (o filho não tem o tamanho infinito, ele tem o tamanho que precisa ter)
             child: IntrinsicHeight(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize:
+                    MainAxisSize.min, //o mínimo de tamanho que ele pode ter
                 children: [
                   SizedBox(
                     height: 10,
