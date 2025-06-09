@@ -1,11 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:provider/provider.dart';
+import 'package:validatorless/validatorless.dart';
+import '../../../core/notifier/default_listener_notifier.dart';
 import '../../../core/widget/todo_list_field.dart';
 import '../../../core/widget/todo_list_logo.dart';
+import 'login_controller.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    DefaultListenerNotifier(
+      changeNotifier: context.read<LoginController>(),
+    ).listener(
+      context: context,
+      sucessCallback: (notifier, listenerInstance) {
+        // listenerInstance.dispose();
+        print('Login efetuado com sucesso');
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailEC.dispose();
+    _passwordEC.dispose();
+    // context.read<RegisterController>().removeListener(() {}); //Nas novas versões do Provider o ChangeNotifierListener chama o dispose do ChangeNotifier e com isso todos os listener são removidos.
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +68,27 @@ class LoginPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 20),
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         children: [
                           TodoListField(
                             label: 'E-mail',
+                            controller: _emailEC,
+                            validator: Validatorless.multiple([
+                              Validatorless.required('Email obrigatório'),
+                              Validatorless.email('Email inválido'),
+                            ]),
                           ),
                           SizedBox(height: 20),
                           TodoListField(
                             label: 'Senha',
                             obscureText: true,
+                            controller: _passwordEC,
+                            validator: Validatorless.multiple([
+                              Validatorless.required('Senha obrigatória'),
+                              Validatorless.min(6,
+                                  'Senha deve conter pelo menos 6 caracteres'),
+                            ]),
                           ),
                           SizedBox(height: 10),
                           Row(
@@ -52,7 +99,19 @@ class LoginPage extends StatelessWidget {
                                 child: Text('Esqueceu a senha?'),
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  final formValid =
+                                      _formKey.currentState?.validate() ??
+                                          false;
+                                  if (formValid) {
+                                    final email = _emailEC.text;
+                                    final password = _passwordEC.text;
+                                    // Provider.of<RegisterController>(context, listen: false).registerUser(email, password);
+                                    context
+                                        .read<LoginController>()
+                                        .login(email, password);
+                                  }
+                                },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
