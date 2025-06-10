@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../core/auth/auth_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,7 +11,14 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: Container(),
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            context.read<AuthProvider>().logout();
+          },
+          child: Text('Logout'),
+        ),
+      ),
     );
   }
 }

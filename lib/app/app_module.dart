@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'app_widget.dart';
+import 'core/auth/auth_provider.dart' as auth;
 import 'core/database/sqlite_connection_factory.dart';
 import 'repositories/user/user_repository.dart';
 import 'repositories/user/user_repository_impl.dart';
@@ -30,6 +31,12 @@ class AppModule extends StatelessWidget {
             userRepository: context.read(),
           ),
         ),
+        ChangeNotifierProvider(
+          create: (context) => auth.AuthProvider(
+              firebaseAuth: context.read(), userService: context.read())
+            ..loadListner(),
+          lazy: false,
+        )
       ],
       child: const AppWidget(),
     );
