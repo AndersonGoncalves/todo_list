@@ -5,6 +5,8 @@ import '../../core/ui/theme_extensions.dart';
 import 'widgets/home_drawer.dart';
 import 'widgets/home_filtros.dart';
 import 'widgets/home_header.dart';
+import 'widgets/home_tasks.dart';
+import 'widgets/home_week_filter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,7 +17,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: Color(0xFFFAFBFE),
       appBar: AppBar(
         iconTheme: IconThemeData(color: context.primaryColor),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xFFFAFBFE),
         elevation: 0,
         actions: [
           PopupMenuButton(
@@ -28,6 +30,13 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: context.primaryColor,
+        onPressed: () {
+          // Implementar ação para adicionar nova tarefa
+        },
+        child: Icon(Icons.add, color: Colors.white),
       ),
       drawer: HomeDrawer(),
       body: LayoutBuilder(builder: (context, constraints) {
@@ -46,6 +55,8 @@ class HomePage extends StatelessWidget {
                   children: [
                     HomeHeader(),
                     HomeFiltros(),
+                    HomeWeekFilter(),
+                    HomeTasks(),
                   ],
                 ),
               ),
