@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/auth/auth_provider.dart';
+import '../../core/ui/theme_extensions.dart';
 import 'widgets/home_drawer.dart';
+import 'widgets/home_filtros.dart';
+import 'widgets/home_header.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,11 +12,47 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAFBFE),
       appBar: AppBar(
-        title: const Text('Home Page'),
+        iconTheme: IconThemeData(color: context.primaryColor),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert, color: context.primaryColor),
+            itemBuilder: (context) => [
+              PopupMenuItem<bool>(
+                child: Text('Mostrar tarefas concluídas',
+                    style: TextStyle(color: context.primaryColor)),
+              ),
+            ],
+          ),
+        ],
       ),
       drawer: HomeDrawer(),
-      body: Container(),
+      body: LayoutBuilder(builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
+              minWidth: constraints.maxWidth,
+            ),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              //IntrinsicHeight: para a coluna não ser infinita
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HomeHeader(),
+                    HomeFiltros(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }
